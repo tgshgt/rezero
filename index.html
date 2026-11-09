@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Re:ゼロ キャラクター紹介</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Noto+Serif+JP:wght@400;600;900&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ Theme tokens ============ */
+:root{
+  --bg:#0a0811; --bg2:#120e1d; --surface:rgba(28,22,42,.72); --line:rgba(216,180,106,.28);
+  --ink:#eee8f6; --ink-dim:#a89fbb; --accent:#d8b46a; --accent2:#9a7bff; --glow:rgba(154,123,255,.45);
+  --card-bg:linear-gradient(160deg,rgba(40,30,62,.9),rgba(16,12,26,.95));
+  --hero-grad:radial-gradient(ellipse 80% 60% at 50% 40%,#2a1846 0%,#120c20 55%,#07060c 100%);
+  --shadow:0 20px 60px rgba(0,0,0,.6);
+  --c:#9a7bff;
+  /* STORY: シーズン別アクセント */
+  --s1:#6fa8ff; --s2:#ff7fa6; --s3:#4fd6b8; --s4:#f0b35a;
+  --st-shadow:0 12px 26px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f4f1fb; --bg2:#e9e4f7; --surface:rgba(255,255,255,.72); --line:rgba(124,92,214,.25);
+  --ink:#251f3a; --ink-dim:#6b6385; --accent:#7c5cd6; --accent2:#4fa8de; --glow:rgba(124,170,230,.45);
+  --card-bg:linear-gradient(160deg,rgba(255,255,255,.95),rgba(232,226,250,.92));
+  --hero-grad:radial-gradient(ellipse 80% 60% at 50% 40%,#ffffff 0%,#e8e1fa 50%,#d4e6f7 100%);
+  --shadow:0 20px 50px rgba(70,50,140,.18);
+  --s1:#2c6fd1; --s2:#c8436f; --s3:#16876f; --s4:#a86a10;
+  --st-shadow:0 10px 22px rgba(70,50,140,.12);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.8;overflow-x:hidden;transition:background-color .6s,color .6s}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+.serif{font-family:"Noto Serif JP",serif}
+.cinzel{font-family:"Cinzel",serif;letter-spacing:.12em}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+/* ============ Loader ============ */
+#loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#07060c;transition:opacity .8s ease,visibility .8s}
+#loader.done{opacity:0;visibility:hidden}
+.clock{position:relative;width:min(46vw,220px);aspect-ratio:1}
+.clock svg{width:100%;height:100%;color:#d8b46a}
+.clock .hand{transform-origin:100px 100px;animation:rewind 1.2s linear infinite}
+.clock .hand.m{animation-duration:.3s}
+@keyframes rewind{to{transform:rotate(-360deg)}}
+.clock .lbl{position:absolute;inset:0;display:grid;place-items:center;font-family:Cinzel,serif;font-size:clamp(28px,7vw,44px);color:#eee8f6;text-shadow:0 0 20px #9a7bff}
+.loader-sub{position:absolute;bottom:18%;width:100%;text-align:center;font-family:Cinzel,serif;letter-spacing:.5em;font-size:12px;color:#a89fbb;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+
+/* ============ Header ============ */
+header.top{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,4vw,40px);transition:background .4s,backdrop-filter .4s}
+header.top.scrolled{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{font-family:Cinzel,serif;font-weight:800;font-size:20px;letter-spacing:.08em;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--accent)}
+header nav{display:flex;gap:clamp(10px,2.5vw,28px);align-items:center}
+header nav a{color:var(--ink-dim);text-decoration:none;font-family:Cinzel,serif;font-size:13px;letter-spacing:.2em;position:relative}
+header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--accent);transform:scaleX(0);transition:transform .35s}
+header nav a:hover{color:var(--ink)}
+header nav a:hover::after{transform:scaleX(1)}
+.theme-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;transition:transform .4s}
+.theme-btn:hover{transform:rotate(30deg) scale(1.08)}
+.theme-btn svg{width:20px;height:20px}
+.theme-btn .sun{display:none}
+:root[data-theme="light"] .theme-btn .sun{display:block}
+:root[data-theme="light"] .theme-btn .moon{display:none}
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent2),var(--accent));z-index:50}
+@media (max-width:560px){header nav a.hide-sm{display:none}}
+
+/* ============ Background canvas & cursor ============ */
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+#cursor{position:fixed;left:0;top:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;pointer-events:none;z-index:2;background:radial-gradient(circle,var(--glow) 0%,transparent 65%);opacity:.35;transition:opacity .3s;mix-blend-mode:screen}
+:root[data-theme="light"] #cursor{mix-blend-mode:multiply;opacity:.25}
+@media (hover:none){#cursor{display:none}}
+main,footer{position:relative;z-index:3}
+
+/* ============ Hero ============ */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;background:var(--hero-grad);isolation:isolate}
+.hero .circle{position:absolute;width:min(110vw,980px);aspect-ratio:1;left:50%;top:50%;translate:-50% -50%;color:var(--accent);opacity:.5;z-index:-1}
+.circle .r1{animation:spin 60s linear infinite;transform-origin:center}
+.circle .r2{animation:spin 40s linear infinite reverse;transform-origin:center}
+.circle .r3{animation:spin 90s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-chara{position:absolute;bottom:-4%;height:92%;z-index:-1;pointer-events:none;filter:drop-shadow(0 0 30px var(--glow));opacity:0;transition:opacity 1.4s ease .6s}
+.hero-chara img{height:100%;width:auto;max-width:none;animation:float 7s ease-in-out infinite}
+.hero-chara.l{left:max(-6vw,calc(50% - 760px))}
+.hero-chara.r{right:max(-6vw,calc(50% - 760px))}
+.hero-chara.r img{animation-delay:-3.5s}
+body.ready .hero-chara{opacity:.95}
+@keyframes float{50%{transform:translateY(-14px)}}
+@media (max-width:820px){.hero-chara{opacity:0!important}.hero-chara.r{display:none}body.ready .hero-chara.l{opacity:.28!important;left:50%;translate:-50% 0}}
+.hero-copy{text-align:center;padding:0 16px;max-width:900px}
+.hero-kicker{font-family:Cinzel,serif;letter-spacing:.5em;font-size:clamp(11px,1.4vw,14px);color:var(--accent);margin:0 0 18px;opacity:0;transform:translateY(10px);transition:all 1s ease .3s}
+.hero h1{margin:0;font-family:"Noto Serif JP",serif;font-weight:900;line-height:1.15}
+.hero h1 .re{display:block;font-family:Cinzel,serif;font-size:clamp(64px,14vw,170px);font-weight:800;letter-spacing:.02em;background:linear-gradient(120deg,var(--ink) 20%,var(--accent) 50%,var(--accent2) 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s ease-in-out infinite}
+@keyframes shine{50%{background-position:100% 0}}
+.hero h1 .ja{display:block;font-size:clamp(22px,4.4vw,52px);letter-spacing:.12em}
+.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(40px) rotateX(-90deg);filter:blur(8px)}
+body.ready .hero h1 .ch{animation:charIn .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--d) * 60ms + .2s)}
+@keyframes charIn{to{opacity:1;transform:none;filter:none}}
+body.ready .hero-kicker,body.ready .hero-sub,body.ready .hero-cta{opacity:1;transform:none}
+.hero-sub{margin:22px 0 0;color:var(--ink-dim);font-family:Cinzel,serif;letter-spacing:.3em;font-size:clamp(11px,1.6vw,15px);opacity:0;transform:translateY(10px);transition:all 1s ease 1.6s}
+.hero-cta{display:inline-flex;margin-top:36px;padding:14px 34px;border:1px solid var(--accent);color:var(--ink);text-decoration:none;font-family:Cinzel,serif;letter-spacing:.3em;font-size:13px;position:relative;overflow:hidden;opacity:0;transform:translateY(10px);transition:opacity 1s ease 1.9s,transform 1s ease 1.9s,color .4s}
+.hero-cta::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-101%);transition:transform .45s cubic-bezier(.7,0,.3,1);z-index:-1}
+.hero-cta:hover{color:var(--bg)}
+.hero-cta:hover::before{transform:none}
+.scroll-ind{position:absolute;bottom:26px;left:50%;translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:Cinzel,serif;font-size:10px;letter-spacing:.4em;color:var(--ink-dim)}
+.scroll-ind i{width:1px;height:48px;background:linear-gradient(var(--accent),transparent);animation:drip 2s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* ============ Section common ============ */
+section.block{padding:clamp(80px,12vw,150px) clamp(16px,5vw,60px);max-width:1280px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:clamp(36px,6vw,64px)}
+.sec-head .en{font-family:Cinzel,serif;font-size:clamp(34px,6vw,64px);letter-spacing:.15em;margin:0;line-height:1.1;font-weight:600}
+.sec-head .ja{margin:8px 0 0;color:var(--accent);letter-spacing:.4em;font-size:13px}
+.sec-head .line{width:0;height:1px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--accent),transparent);transition:width 1.2s ease .3s}
+.in .sec-head .line,.sec-head.in .line{width:min(240px,60%)}
+[data-reveal]{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============ Intro ============ */
+.intro{position:relative}
+.intro-wrap{position:relative;display:grid;grid-template-columns:1fr;gap:28px;max-width:860px;margin:0 auto;padding:clamp(28px,5vw,56px);border:1px solid var(--line);background:var(--surface);backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.intro-wrap::before,.intro-wrap::after{content:"";position:absolute;width:28px;height:28px;border:2px solid var(--accent)}
+.intro-wrap::before{top:-6px;left:-6px;border-right:0;border-bottom:0}
+.intro-wrap::after{bottom:-6px;right:-6px;border-left:0;border-top:0}
+.season{font-family:Cinzel,serif;color:var(--accent);letter-spacing:.35em;font-size:13px;margin:0}
+.intro-text p{margin:0 0 1.1em;font-family:"Noto Serif JP",serif;font-size:clamp(15px,1.8vw,17px);line-height:2.1}
+.intro-text .ln{display:block;opacity:0;transform:translateX(-20px);transition:opacity .9s ease,transform .9s ease;transition-delay:calc(var(--i) * 180ms)}
+.intro-wrap.in .intro-text .ln{opacity:1;transform:none}
+.marquee{position:absolute;left:50%;width:100vw;top:50%;translate:-50% -50%;overflow:hidden;pointer-events:none;z-index:-1;white-space:nowrap}
+.marquee span{display:inline-block;font-family:Cinzel,serif;font-size:clamp(80px,16vw,220px);font-weight:800;color:transparent;-webkit-text-stroke:1px var(--line);animation:mq 40s linear infinite;padding-right:.5em}
+@keyframes mq{to{transform:translateX(-100%)}}
+
+/* ============ Characters ============ */
+.filters{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 auto 44px;padding:6px;max-width:920px}
+.filters button{position:relative;z-index:1;border:1px solid var(--line);background:var(--surface);padding:8px 16px;border-radius:999px;font-size:13px;letter-spacing:.08em;color:var(--ink-dim);transition:color .3s,border-color .3s,background .3s,transform .2s}
+.filters button:hover{color:var(--ink);transform:translateY(-2px)}
+.filters button[aria-pressed="true"]{color:var(--bg);background:var(--accent);border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));grid-auto-rows:1fr;gap:clamp(14px,2vw,24px)}
+@media (max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{perspective:900px;opacity:0;transform:translateY(50px) scale(.96);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * 70ms)}
+.card.in{opacity:1;transform:none}
+.card[hidden]{display:none}
+.card button{all:unset;display:block;width:100%;height:100%;cursor:pointer;border-radius:18px}
+.card button:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+.card .inner{--rx:0deg;--ry:0deg;position:relative;height:100%;display:flex;flex-direction:column;align-items:center;border-radius:18px;padding:22px 16px 20px;background:var(--card-bg);border:1px solid var(--line);transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .25s ease-out,box-shadow .4s,border-color .4s;overflow:hidden;text-align:center;box-shadow:var(--shadow)}
+.card .inner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,30%),color-mix(in srgb,var(--c) 45%,transparent),transparent 60%);opacity:0;transition:opacity .4s}
+.card .inner::after{content:"";position:absolute;inset:-50%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);transform:translateX(-60%);transition:transform .9s ease}
+.card button:hover .inner,.card button:focus-visible .inner{border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 20px 60px color-mix(in srgb,var(--c) 35%,transparent)}
+.card button:hover .inner::before{opacity:1}
+.card button:hover .inner::after{transform:translateX(60%)}
+.avatar{position:relative;width:min(150px,80%);aspect-ratio:1;margin:0 auto 14px;transform:translateZ(40px)}
+.avatar .ring{position:absolute;inset:-8px;border-radius:50%;border:1px dashed color-mix(in srgb,var(--c) 70%,transparent);animation:spin 18s linear infinite}
+.avatar .ring2{position:absolute;inset:-2px;border-radius:50%;border:2px solid transparent;border-top-color:var(--c);border-bottom-color:var(--c);animation:spin 6s linear infinite reverse;opacity:0;transition:opacity .4s}
+.card button:hover .ring2{opacity:1}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:color-mix(in srgb,var(--c) 20%,var(--bg2));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.card button:hover .avatar img{transform:scale(1.08)}
+.card .nm{position:relative;margin:0;font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(14px,1.6vw,16px);line-height:1.4;transform:translateZ(30px)}
+.card .en{position:relative;margin:4px 0 0;font-family:Cinzel,serif;font-size:10.5px;letter-spacing:.14em;color:var(--ink-dim);transform:translateZ(20px)}
+.card .en{margin-bottom:10px}
+.card .fac{position:relative;display:inline-block;margin-top:auto;font-size:10.5px;padding:2px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 60%,transparent);color:var(--c);letter-spacing:.06em;transform:translateZ(25px)}
+:root[data-theme="light"] .card .fac{color:color-mix(in srgb,var(--c) 65%,#222)}
+
+/* ============ Detail overlay ============ */
+.detail{position:fixed;inset:0;z-index:60;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;overflow:hidden;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.detail.open{opacity:1;visibility:visible}
+.d-scroll{display:contents}
+.d-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.d-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 28% 55%,color-mix(in srgb,var(--c) 38%,transparent),transparent 70%);transition:background .8s}
+.d-bg .circle{position:absolute;width:min(86vh,700px);aspect-ratio:1;left:24%;top:52%;translate:-50% -50%;color:var(--c);opacity:.45;transition:color .8s}
+.d-mq{position:absolute;bottom:4%;left:0;white-space:nowrap;font-family:Cinzel,serif;font-weight:800;font-size:clamp(60px,11vw,160px);color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--c) 50%,transparent);opacity:.7}
+.d-mq span{display:inline-block;animation:mq 30s linear infinite;padding-right:.4em}
+.d-stage{position:relative;height:100svh;display:flex;align-items:flex-end;justify-content:center;padding-top:70px}
+.d-img{height:94%;width:auto;max-width:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 0 40px color-mix(in srgb,var(--c) 50%,transparent));will-change:transform,clip-path}
+.d-info{position:relative;padding:90px clamp(16px,5vw,70px) 120px 0;max-height:100svh;overflow:auto}
+.d-num{font-family:Cinzel,serif;font-size:13px;letter-spacing:.3em;color:var(--c);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+.d-num::after{content:"";flex:0 0 60px;height:1px;background:var(--c)}
+.d-fac{display:inline-block;font-size:12px;padding:3px 12px;border:1px solid var(--c);border-radius:999px;color:var(--c);margin-bottom:14px}
+:root[data-theme="light"] .d-fac,:root[data-theme="light"] .d-num{color:color-mix(in srgb,var(--c) 65%,#222)}
+.d-name{margin:0;font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(28px,4.2vw,54px);line-height:1.25}
+.d-name .ch{display:inline-block;opacity:0;transform:translateY(.6em);animation:charIn .6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--d) * 35ms + .15s)}
+.d-en{margin:6px 0 0;font-family:Cinzel,serif;letter-spacing:.2em;color:var(--ink-dim);font-size:clamp(12px,1.4vw,15px)}
+.d-cv{margin:18px 0 0;font-size:14px;color:var(--ink-dim)}
+.d-cv b{color:var(--ink);font-weight:500;margin-left:.6em}
+.d-text{margin:22px 0 0;font-family:"Noto Serif JP",serif;line-height:2.05;font-size:clamp(14px,1.45vw,16px);max-width:36em}
+.d-face{margin-top:26px;width:min(380px,100%);border-radius:12px;border:1px solid var(--line);background:#fff}
+.d-anim{opacity:0;transform:translateY(18px);animation:up .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--dl,0s)}
+@keyframes up{to{opacity:1;transform:none}}
+.d-close{position:absolute;top:18px;right:clamp(16px,3vw,32px);z-index:5;width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;transition:transform .4s,border-color .3s}
+.d-close:hover{transform:rotate(90deg);border-color:var(--c)}
+.d-nav{position:absolute;bottom:22px;right:clamp(16px,4vw,60px);z-index:5;display:flex;align-items:center;gap:10px}
+.d-nav button{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px 6px 6px;font-size:12px;transition:border-color .3s,transform .3s}
+.d-nav button.next{flex-direction:row-reverse;padding:6px 6px 6px 14px}
+.d-nav button:hover{border-color:var(--c);transform:translateY(-2px)}
+.d-nav img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--bg2)}
+.d-nav .lbl{max-width:9em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:860px){
+  .detail{display:block}
+  .d-scroll{display:block;position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain}
+  .d-stage{height:62svh;padding-top:60px}
+  .d-bg .circle{left:50%;top:32%}
+  .d-info{padding:10px 16px 110px;max-height:none;overflow:visible}
+  .d-nav{left:0;right:0;bottom:0;padding:14px 16px 18px;justify-content:space-between;background:linear-gradient(transparent,color-mix(in srgb,var(--bg) 92%,transparent) 35%)}
+  .d-mq{opacity:.3}
+  .d-nav .lbl{max-width:6.5em}
+}
+
+/* ============ Story ============ */
+.story{--pad:clamp(16px,5vw,60px);overflow-x:clip}
+.st-s1{--c:var(--s1)} .st-s2{--c:var(--s2)} .st-s3{--c:var(--s3)} .st-s4{--c:var(--s4)}
+.st-season{position:relative;margin-top:clamp(56px,8vw,100px)}
+.st-season:first-child{margin-top:0}
+.st-head{display:flex;align-items:flex-end;gap:clamp(12px,2vw,24px);margin-bottom:6px}
+.st-num{font-family:Cinzel,serif;font-weight:800;font-size:clamp(60px,9vw,120px);line-height:.78;color:transparent;-webkit-text-stroke:1px var(--c);clip-path:inset(0 100% 0 0);transform:translateX(-24px);transition:clip-path 1.1s cubic-bezier(.7,0,.3,1) .1s,transform 1.1s cubic-bezier(.2,.8,.2,1) .1s}
+.st-season.in .st-num{clip-path:inset(0 -10% 0 0);transform:none}
+.st-ttl{flex:1 1 auto;min-width:0}
+.st-ttl h3{margin:0;font-family:Cinzel,serif;font-weight:600;letter-spacing:.28em;font-size:clamp(16px,2vw,22px);line-height:1.3}
+.st-ttl .rg{margin:4px 0 0;font-size:12px;letter-spacing:.14em;color:var(--ink-dim)}
+.st-ttl .bar{height:1px;margin-top:10px;background:linear-gradient(90deg,var(--c),transparent);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.4s cubic-bezier(.2,.8,.2,1) .35s}
+.st-season.in .st-ttl .bar{transform:none}
+.st-ctrl{display:flex;gap:8px;flex:0 0 auto}
+.st-ctrl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;transition:border-color .3s,transform .3s,opacity .3s,color .3s}
+.st-ctrl button:hover:not(:disabled){border-color:var(--c);color:var(--c);transform:scale(1.08)}
+.st-ctrl button:disabled{opacity:.3;cursor:default}
+.st-ctrl svg{width:18px;height:18px}
+@media (max-width:560px){.st-ctrl{display:none}}
+
+.st-track{--gap:clamp(14px,2vw,22px);display:flex;gap:var(--gap);margin:0 calc(-1 * var(--pad));padding:34px var(--pad) 46px;list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);scrollbar-width:none;cursor:grab;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 var(--pad),#000 calc(100% - var(--pad)),transparent);mask-image:linear-gradient(90deg,transparent,#000 var(--pad),#000 calc(100% - var(--pad)),transparent)}
+.st-track::-webkit-scrollbar{display:none}
+.st-track.drag{scroll-snap-type:none;cursor:grabbing;user-select:none}
+@media (hover:none){.st-track{cursor:auto}}
+.st-item{position:relative;flex:0 0 auto;width:clamp(240px,24vw,300px);scroll-snap-align:start;opacity:0;transform:translateX(90px) rotateY(-28deg);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1);transition-delay:calc(min(var(--i),6) * 90ms)}
+.st-item.is-intro{width:clamp(270px,34vw,420px)}
+.st-season.in .st-item{opacity:1;transform:none}
+/* タイムライン（線＋ノード） */
+.st-item::before{content:"";position:absolute;top:-14px;left:0;right:calc(-1 * var(--gap));height:1px;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 25%,transparent));transform:scaleX(0);transform-origin:0 50%;transition:transform .8s ease;transition-delay:calc(min(var(--i),6) * 90ms + .25s)}
+.st-item:last-child::before{right:40%}
+.st-season.in .st-item::before{transform:none}
+.st-dot{position:absolute;top:-19px;left:22px;width:11px;height:11px;border-radius:50%;border:1.5px solid var(--c);background:var(--bg);transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1),background .3s,box-shadow .3s;transition-delay:calc(min(var(--i),6) * 90ms + .45s),0s,0s}
+.st-season.in .st-dot{transform:none}
+.st-item:hover .st-dot,.st-item:focus-within .st-dot{background:var(--c);box-shadow:0 0 0 5px color-mix(in srgb,var(--c) 22%,transparent)}
+
+.st-card{position:relative;display:flex;flex-direction:column;width:100%;height:100%;margin:0;padding:0;text-align:left;border:1px solid var(--line);border-radius:16px;background:var(--card-bg);overflow:hidden;box-shadow:var(--st-shadow);
+  transform:perspective(1000px) translateY(var(--ty,0px)) rotateY(var(--ry,0deg)) scale(var(--sc,1));transition:transform .35s ease-out,border-color .4s,box-shadow .4s}
+.st-card:hover,.st-card:focus-visible{--ty:-8px;border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 14px 30px color-mix(in srgb,var(--c) 30%,transparent)}
+.st-card:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+.st-card::after{content:"";position:absolute;inset:-50%;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%);transform:translateX(-60%);transition:transform .9s ease;pointer-events:none}
+.st-card:hover::after{transform:translateX(60%)}
+.st-card img{-webkit-user-drag:none}
+.st-thumb{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:var(--bg2)}
+.st-thumb img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);filter:saturate(.85);transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter .6s}
+.st-card:hover .st-thumb img{transform:scale(1.14);filter:saturate(1.1)}
+.st-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,color-mix(in srgb,var(--bg2) 88%,transparent))}
+.st-no{position:absolute;left:14px;bottom:8px;z-index:1;font-family:Cinzel,serif;font-weight:800;font-size:28px;line-height:1;color:var(--ink);text-shadow:0 2px 14px var(--bg)}
+.st-body{display:flex;flex-direction:column;gap:6px;flex:1;padding:12px 16px 16px}
+.st-lbl{font-size:11px;letter-spacing:.2em;color:var(--c)}
+.st-title{font-family:"Noto Serif JP",serif;font-weight:600;font-size:15.5px;line-height:1.5;min-height:3em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.st-ex{font-size:12.5px;line-height:1.75;color:var(--ink-dim);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.st-more{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;font-family:Cinzel,serif;font-size:11px;letter-spacing:.3em;color:var(--c)}
+.st-more::after{content:"";width:22px;height:1px;background:currentColor;transition:width .4s}
+.st-card:hover .st-more::after{width:46px}
+.st-intro{justify-content:flex-end;min-height:340px;background:var(--bg2)}
+.st-kv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;transform:scale(1.02);transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.st-intro:hover .st-kv{transform:scale(1.1)}
+.st-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 18%,color-mix(in srgb,var(--bg) 70%,transparent) 52%,color-mix(in srgb,var(--bg) 94%,transparent) 80%)}
+.st-ib{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px 20px 18px}
+.st-it{font-family:Cinzel,serif;font-size:12px;letter-spacing:.32em;color:var(--c)}
+.st-catch{font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(16px,1.7vw,20px);line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.st-foot{display:flex;align-items:center;gap:14px;font-family:Cinzel,serif;font-size:11px;letter-spacing:.2em;color:var(--ink-dim)}
+.st-prog{position:relative;flex:1;height:2px;background:var(--line);overflow:hidden;border-radius:2px}
+.st-prog i{position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 40%,transparent),var(--c));transform-origin:0 50%;transform:scaleX(.04);transition:transform .25s ease-out}
+.st-cnt{font-variant-numeric:tabular-nums}
+.st-hint{display:inline-flex;align-items:center;gap:8px}
+.st-hint i{display:inline-block;width:26px;height:1px;background:currentColor;animation:hint 2.2s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:translateX(-4px)}50%{transform:translateX(6px)}}
+@media (max-width:480px){.st-hint{display:none}.st-item{width:76vw}.st-item.is-intro{width:82vw}}
+
+/* ============ Story overlay ============ */
+.sd{position:fixed;inset:0;z-index:61;overflow:hidden;background:color-mix(in srgb,var(--bg) 93%,transparent);backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.sd.open{opacity:1;visibility:visible}
+.sd-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.sd-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 32% 50%,color-mix(in srgb,var(--c) 28%,transparent),transparent 70%)}
+.sd-bg .circle{position:absolute;width:min(92vh,780px);aspect-ratio:1;right:-14%;top:50%;translate:0 -50%;color:var(--c);opacity:.28}
+.sd-big{position:absolute;left:2%;bottom:-5%;font-family:Cinzel,serif;font-weight:800;font-size:clamp(120px,24vw,360px);line-height:1;white-space:nowrap;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--c) 55%,transparent)}
+.sd-big span{display:inline-block;animation:bigIn 1.3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bigIn{from{opacity:0;transform:translateX(-10%)}}
+.sd-scroll{position:absolute;inset:0;max-width:1440px;margin:0 auto;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center;padding:90px clamp(16px,5vw,72px) 110px}
+.sd-frame{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid color-mix(in srgb,var(--c) 45%,var(--line));background:var(--bg2);box-shadow:0 30px 80px color-mix(in srgb,var(--c) 26%,transparent);cursor:pointer}
+.sd-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.1s ease}
+.sd-frame img.on{opacity:1;animation:kb 7s ease-out both}
+@keyframes kb{from{transform:scale(1.12) translate(1.5%,1%)}to{transform:none}}
+.sd-frame.kv{aspect-ratio:auto;height:min(66svh,620px);border:0;background:transparent;box-shadow:none;overflow:visible;cursor:default}
+.sd-frame.kv img{object-fit:contain;filter:drop-shadow(0 20px 50px color-mix(in srgb,var(--c) 35%,transparent))}
+.sd-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:12px}
+.sd-dots[hidden]{display:none}
+.sd-dots button{width:30px;height:22px;padding:0;border:0;background:linear-gradient(var(--line),var(--line)) center/100% 3px no-repeat;transition:width .3s}
+.sd-dots button[aria-pressed="true"]{width:48px;background-image:linear-gradient(var(--c),var(--c))}
+.sd-info{position:relative;min-width:0}
+.sd-kick{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 12px;font-family:Cinzel,serif;font-size:12px;letter-spacing:.28em;color:var(--c)}
+.sd-kick span+span::before{content:"";display:inline-block;width:28px;height:1px;margin-right:14px;background:currentColor;vertical-align:middle}
+.sd-lbl{margin:0;font-family:"Noto Serif JP",serif;font-size:14px;letter-spacing:.2em;color:var(--ink-dim)}
+.sd-title{margin:6px 0 0;font-family:"Noto Serif JP",serif;font-weight:900;font-size:clamp(24px,3.2vw,42px);line-height:1.4}
+.sd-title.en{font-family:Cinzel,serif;font-weight:600;letter-spacing:.1em}
+/* inline のまま（inline-block だと禁則処理が効かず「・」等が行頭に来る）→ opacity と blur で出現 */
+.sd-title .ch{opacity:0;filter:blur(6px);animation:chFade .7s ease forwards;animation-delay:calc(var(--d) * 28ms + .15s)}
+@keyframes chFade{to{opacity:1;filter:none}}
+.sd-catch{margin:18px 0 0;font-family:"Noto Serif JP",serif;font-weight:600;font-size:clamp(16px,1.9vw,21px);line-height:1.8;color:var(--c)}
+.sd-text{margin-top:20px;max-width:38em;font-family:"Noto Serif JP",serif;font-size:clamp(14px,1.45vw,16px);line-height:2.1}
+.sd-text p{margin:0 0 1em}
+.sd-link{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding-bottom:3px;font-size:13px;color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--line);transition:color .3s,border-color .3s}
+.sd-link:hover{color:var(--c);border-color:var(--c)}
+.sd-nav .lbl{max-width:12em}
+@media (max-width:860px){
+  .sd-scroll{display:block;padding:76px 16px 120px}
+  .sd-frame.kv{height:min(52svh,460px)}
+  .sd-info{margin-top:26px}
+  .sd-big{top:40px;bottom:auto;left:-2%;font-size:clamp(100px,34vw,220px);opacity:.55}
+  .sd-bg .circle{right:-40%;top:30%;opacity:.12}
+  .sd-nav .lbl{max-width:7.5em}
+}
+
+/* ============ Footer ============ */
+footer{border-top:1px solid var(--line);padding:40px 16px 50px;text-align:center;color:var(--ink-dim);font-size:12px;line-height:2}
+footer a{color:var(--accent)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Loader: 時計の針が逆回転する“死に戻り”モチーフ -->
+<div id="loader" aria-hidden="true">
+  <div class="clock">
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor">
+      <circle cx="100" cy="100" r="92" stroke-width="1"/>
+      <circle cx="100" cy="100" r="84" stroke-width=".5" stroke-dasharray="2 6"/>
+      <g stroke-width="2" id="ticks"></g>
+      <line class="hand" x1="100" y1="100" x2="100" y2="48" stroke-width="3" stroke-linecap="round"/>
+      <line class="hand m" x1="100" y1="100" x2="100" y2="26" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="lbl">Re:</div>
+  </div>
+  <div class="loader-sub">RETURN BY DEATH</div>
+</div>
+
+<div id="progress"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <a class="brand" href="#hero">Re<span>:</span>ZERO</a>
+  <nav>
+    <a href="#intro" class="hide-sm">INTRODUCTION</a>
+    <a href="#story">STORY</a>
+    <a href="#characters">CHARACTER</a>
+    <button class="theme-btn" id="themeBtn" aria-label="テーマ切替（ダーク／ライト）" title="テーマ切替">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><path d="M12 7.5l1.4 3.1 3.1 1.4-3.1 1.4L12 16.5l-1.4-3.1L7.5 12l3.1-1.4z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- 魔法陣（使い回し用） -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <path id="ringPath" d="M200,200 m-168,0 a168,168 0 1,1 336,0 a168,168 0 1,1 -336,0"/>
+    <symbol id="magic" viewBox="0 0 400 400">
+      <g class="r1" fill="none" stroke="currentColor">
+        <circle cx="200" cy="200" r="196" stroke-width="1"/>
+        <circle cx="200" cy="200" r="184" stroke-width=".6" stroke-dasharray="1 5"/>
+        <text font-family="Cinzel,serif" font-size="13" letter-spacing="5" fill="currentColor" stroke="none"><textPath href="#ringPath">RE:ZERO · STARTING LIFE IN ANOTHER WORLD · RETURN BY DEATH · LUGUNICA · </textPath></text>
+        <circle cx="200" cy="200" r="156" stroke-width="1"/>
+      </g>
+      <g class="r2" fill="none" stroke="currentColor" stroke-width="1">
+        <polygon points="200,48 331.6,276 68.4,276"/>
+        <polygon points="200,352 68.4,124 331.6,124"/>
+        <circle cx="200" cy="200" r="104"/>
+        <circle cx="200" cy="48" r="10"/><circle cx="331.6" cy="276" r="10"/><circle cx="68.4" cy="276" r="10"/>
+        <circle cx="200" cy="352" r="10"/><circle cx="68.4" cy="124" r="10"/><circle cx="331.6" cy="124" r="10"/>
+      </g>
+      <g class="r3" fill="none" stroke="currentColor" stroke-width=".8">
+        <rect x="140" y="140" width="120" height="120"/>
+        <rect x="140" y="140" width="120" height="120" transform="rotate(45 200 200)"/>
+        <circle cx="200" cy="200" r="40" stroke-dasharray="4 4"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <svg class="circle" aria-hidden="true"><use href="#magic"/></svg>
+    <div class="hero-chara l" data-depth="18"><img id="heroL" alt="" referrerpolicy="no-referrer"></div>
+    <div class="hero-chara r" data-depth="-14"><img id="heroR" alt="" referrerpolicy="no-referrer"></div>
+    <div class="hero-copy">
+      <p class="hero-kicker">TV ANIMATION · 4th season</p>
+      <h1 aria-label="Re:ゼロから始める異世界生活">
+        <span class="re" aria-hidden="true">Re:ZERO</span>
+        <span class="ja" id="heroJa" aria-hidden="true">ゼロから始める異世界生活</span>
+      </h1>
+      <p class="hero-sub">STARTING LIFE IN ANOTHER WORLD</p>
+      <a class="hero-cta" href="#characters">CHARACTERS</a>
+    </div>
+    <div class="scroll-ind" aria-hidden="true">SCROLL<i></i></div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section class="block intro" id="intro">
+    <div class="marquee" aria-hidden="true"><span>Re:ZERO · 4th season · Re:ZERO · 4th season · </span><span>Re:ZERO · 4th season · Re:ZERO · 4th season · </span></div>
+    <div class="sec-head" data-reveal>
+      <h2 class="en">INTRODUCTION</h2>
+      <p class="ja">作品紹介</p>
+      <div class="line"></div>
+    </div>
+    <div class="intro-wrap" data-reveal>
+      <p class="season">— 4th season —</p>
+      <div class="intro-text" id="introText"></div>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="block story" id="story">
+    <div class="sec-head" data-reveal>
+      <h2 class="en">STORY</h2>
+      <p class="ja">あらすじ</p>
+      <div class="line"></div>
+    </div>
+    <div id="stories"></div>
+  </section>
+
+  <!-- ============ CHARACTERS ============ -->
+  <section class="block" id="characters">
+    <div class="sec-head" data-reveal>
+      <h2 class="en">CHARACTER</h2>
+      <p class="ja">キャラクター</p>
+      <div class="line"></div>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="陣営で絞り込み"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<footer>
+  本ページは個人鑑賞用の非公式ファンページです。キャラクター情報・あらすじ・画像は
+  <a href="https://re-zero-anime.jp/tv/" target="_blank" rel="noopener noreferrer">TVアニメ『Re:ゼロから始める異世界生活』公式サイト</a>
+  （<a href="https://re-zero-anime.jp/tv/character/" target="_blank" rel="noopener noreferrer">CHARACTER</a>／<a href="https://re-zero-anime.jp/tv/story/" target="_blank" rel="noopener noreferrer">STORY</a>）より。<br>
+  ©長月達平・株式会社KADOKAWA刊／Re:ゼロから始める異世界生活1〜4製作委員会
+</footer>
+
+<!-- ============ DETAIL ============ -->
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dName">
+  <div class="d-bg" aria-hidden="true">
+    <svg class="circle"><use href="#magic"/></svg>
+    <div class="d-mq" id="dMq"></div>
+  </div>
+  <button class="d-close" id="dClose" aria-label="閉じる">
+    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <div class="d-scroll" id="dScroll">
+    <div class="d-stage"><img class="d-img" id="dImg" alt="" referrerpolicy="no-referrer"></div>
+    <div class="d-info" id="dInfo"></div>
+  </div>
+  <div class="d-nav">
+    <button class="prev" id="dPrev" aria-label="前のキャラクター"><img alt="" referrerpolicy="no-referrer"><span class="lbl"></span></button>
+    <button class="next" id="dNext" aria-label="次のキャラクター"><img alt="" referrerpolicy="no-referrer"><span class="lbl"></span></button>
+  </div>
+</div>
+
+<!-- ============ STORY DETAIL ============ -->
+<div class="sd" id="sd" role="dialog" aria-modal="true" aria-labelledby="sdTitle" aria-hidden="true">
+  <div class="sd-bg" aria-hidden="true">
+    <svg class="circle"><use href="#magic"/></svg>
+    <div class="sd-big" id="sdBig"></div>
+  </div>
+  <button class="d-close" id="sdClose" aria-label="閉じる">
+    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <div class="sd-scroll" id="sdScroll">
+    <div class="sd-media">
+      <div class="sd-frame" id="sdFrame"></div>
+      <div class="sd-dots" id="sdDots" role="group" aria-label="場面写真の切替"></div>
+    </div>
+    <div class="sd-info" id="sdInfo"></div>
+  </div>
+  <div class="d-nav sd-nav">
+    <button class="prev" id="sdPrev" aria-label="前のあらすじ"><img alt="" referrerpolicy="no-referrer"><span class="lbl"></span></button>
+    <button class="next" id="sdNext" aria-label="次のあらすじ"><img alt="" referrerpolicy="no-referrer"><span class="lbl"></span></button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const CH = window.CHARACTERS || [];
+
+  const FACTIONS = {
+    hero: '主人公', emilia: 'エミリア陣営', felt: 'フェルト陣営', crusch: 'クルシュ陣営',
+    anastasia: 'アナスタシア陣営', priscilla: 'プリシラ陣営', witch: '魔女教'
+  };
+  const INTRO = [
+    '水門都市プリステラの死闘で辛くも勝利を収めたスバルたちだったが、その代償はあまりに大きかった。“暴食”の権能によって眠り続けるレム、記憶を奪われたクルシュ、そして名前を奪われてしまったユリウス。',
+    '彼らを救う手がかりを求める中、スバルは全てを見通し、あらゆる知識を持つと言われる『賢者』シャウラの存在を知る。',
+    '次の目的地は賢者の住まう「プレアデス監視塔」──そこは、最強の『剣聖』ラインハルトですら攻略できなかった大砂漠「アウグリア砂丘」にそびえ立つ最果ての塔。',
+    '猛威を振るう自然、未知なる魔獣、そして想像を絶する脅威が立ちはだかる。仲間と共に、すべてを取り戻すため、命を懸けた少年の旅路が始まる──'
+  ];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const splitChars = (s) => [...s].map((c, i) => `<span class="ch" style="--d:${i}">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join('');
+
+  /* ---------- Theme ---------- */
+  try { const t = localStorage.getItem('rz-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  $('#themeBtn').addEventListener('click', (e) => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    const apply = () => { root.dataset.theme = next; try { localStorage.setItem('rz-theme', next); } catch (err) {} };
+    if (!document.startViewTransition || reduced) return apply();
+    const x = e.clientX, y = e.clientY;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(() => {
+      root.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        { duration: 800, easing: 'cubic-bezier(.7,0,.3,1)', pseudoElement: '::view-transition-new(root)' });
+    });
+  });
+
+  /* ---------- Loader ---------- */
+  const ticks = $('#ticks');
+  for (let i = 0; i < 12; i++) {
+    const a = i * 30 * Math.PI / 180;
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', 100 + Math.sin(a) * 74); l.setAttribute('y1', 100 - Math.cos(a) * 74);
+    l.setAttribute('x2', 100 + Math.sin(a) * 84); l.setAttribute('y2', 100 - Math.cos(a) * 84);
+    ticks.appendChild(l);
+  }
+  let readied = false;
+  const ready = () => { if (readied) return; readied = true; $('#loader').classList.add('done'); document.body.classList.add('ready'); };
+  setTimeout(ready, reduced ? 0 : 1700);
+
+  /* ---------- Hero ---------- */
+  $('#heroJa').innerHTML = splitChars('ゼロから始める異世界生活');
+  const byId = id => CH.find(c => c.id === id);
+  if (byId(1)) $('#heroL').src = byId(1).img;
+  if (byId(2)) $('#heroR').src = byId(2).img;
+
+  /* ---------- Intro ---------- */
+  $('#introText').innerHTML = INTRO.map((p, i) => `<p><span class="ln" style="--i:${i}">${esc(p)}</span></p>`).join('');
+
+  /* ---------- Filters & cards ---------- */
+  const used = ['all', ...Object.keys(FACTIONS).filter(k => CH.some(c => c.faction === k))];
+  $('#filters').innerHTML = used.map(k => `<button data-f="${k}" aria-pressed="${k === 'all'}">${k === 'all' ? 'すべて' : FACTIONS[k]}</button>`).join('');
+  $('#grid').innerHTML = CH.map((c, i) => `
+    <article class="card" data-faction="${c.faction}" style="--c:${c.color};--i:${i % 6}">
+      <button data-idx="${i}" aria-label="${esc(c.name)}の紹介を開く">
+        <div class="inner">
+          <div class="avatar"><span class="ring"></span><span class="ring2"></span>
+            <img src="${esc(c.icon)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+          <p class="nm">${esc(c.name)}</p>
+          <p class="en">${esc(c.en)}</p>
+          <span class="fac">${FACTIONS[c.faction]}</span>
+        </div>
+      </button>
+    </article>`).join('');
+  const cards = [...document.querySelectorAll('.card')];
+
+  $('#filters').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    const f = b.dataset.f;
+    document.querySelectorAll('#filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const first = new Map(cards.map(c => [c, c.hidden ? null : c.getBoundingClientRect()]));
+    cards.forEach(c => { c.hidden = !(f === 'all' || c.dataset.faction === f); });
+    if (reduced) return;
+    let n = 0;
+    cards.forEach(c => {
+      if (c.hidden) return;
+      c.classList.add('in');
+      const a = first.get(c), z = c.getBoundingClientRect();
+      if (!a) {
+        c.animate([{ opacity: 0, transform: 'scale(.7) translateY(30px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 550, delay: n++ * 50, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+      } else {
+        c.animate([{ transform: `translate(${a.left - z.left}px, ${a.top - z.top}px)` }, { transform: 'none' }],
+          { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      }
+    });
+  });
+
+  // 3D tilt + spotlight
+  if (matchMedia('(hover:hover)').matches && !reduced) {
+    cards.forEach(card => {
+      const inner = $('.inner', card);
+      card.addEventListener('pointermove', (e) => {
+        const r = inner.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        inner.style.setProperty('--ry', `${(px - .5) * 18}deg`);
+        inner.style.setProperty('--rx', `${(.5 - py) * 18}deg`);
+        inner.style.setProperty('--mx', `${px * 100}%`);
+        inner.style.setProperty('--my', `${py * 100}%`);
+      });
+      card.addEventListener('pointerleave', () => { inner.style.setProperty('--rx', '0deg'); inner.style.setProperty('--ry', '0deg'); });
+      card.addEventListener('pointerenter', () => { const im = new Image(); im.referrerPolicy = 'no-referrer'; im.src = CH[+$('button', card).dataset.idx].img; }, { once: true });
+    });
+  }
+
+  /* ---------- Story: シーズン別 横スクロールカード ---------- */
+  const ST = window.STORIES || [];
+  const SITEMS = [];   // 全シーズンを通した閲覧順（各シーズン INTRODUCTION → 各話）
+  ST.forEach(s => { SITEMS.push({ s, e: null }); s.episodes.forEach(e => SITEMS.push({ s, e })); });
+  const pad2 = n => String(n).padStart(2, '0');
+  const nl2br = t => esc(t).replace(/\n/g, '<br>');
+  const ARROW = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="${d < 0 ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}"/></svg>`;
+  const IMG = (src, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="${esc(src)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" draggable="false">`;
+
+  $('#stories').innerHTML = ST.map((s, si) => {
+    const base = SITEMS.findIndex(x => x.s === s);
+    const eps = s.episodes, first = eps[0], last = eps[eps.length - 1];
+    return `
+    <div class="st-season st-${esc(s.id)}" data-reveal>
+      <div class="st-head">
+        <span class="st-num" aria-hidden="true">${pad2(si + 1)}</span>
+        <div class="st-ttl">
+          <h3>${esc(s.label)}</h3>
+          <p class="rg">EPISODE #${esc(first.no)} – #${esc(last.no)} · 全${eps.length}話</p>
+          <div class="bar"></div>
+        </div>
+        <div class="st-ctrl">
+          <button class="prev" aria-label="${esc(s.label)}：前へ">${ARROW(-1)}</button>
+          <button class="next" aria-label="${esc(s.label)}：次へ">${ARROW(1)}</button>
+        </div>
+      </div>
+      <ul class="st-track" aria-label="${esc(s.label)} のあらすじ">
+        <li class="st-item is-intro" style="--i:0"><span class="st-dot"></span>
+          <button class="st-card st-intro" data-k="${base}" aria-label="${esc(s.label)} INTRODUCTION を開く">
+            ${IMG(s.intro.img, 'st-kv')}<span class="st-ov"></span>
+            <span class="st-ib">
+              <span class="st-it">INTRODUCTION</span>
+              <span class="st-catch">${nl2br(s.intro.catch || s.intro.text[0])}</span>
+              <span class="st-more">READ</span>
+            </span>
+          </button>
+        </li>
+        ${eps.map((e, ei) => `
+        <li class="st-item" style="--i:${ei + 1}"><span class="st-dot"></span>
+          <button class="st-card" data-k="${base + 1 + ei}" aria-label="${esc(e.label)}「${esc(e.title)}」のあらすじを開く">
+            <span class="st-thumb">${IMG(e.img)}<span class="st-no">#${esc(e.no)}</span></span>
+            <span class="st-body">
+              <span class="st-lbl">${esc(e.label)}</span>
+              <span class="st-title">${esc(e.title)}</span>
+              <span class="st-ex">${esc(e.text)}</span>
+              <span class="st-more">READ</span>
+            </span>
+          </button>
+        </li>`).join('')}
+      </ul>
+      <div class="st-foot" aria-hidden="true">
+        <span class="st-cnt">01 / ${pad2(eps.length + 1)}</span>
+        <div class="st-prog"><i></i></div>
+        <span class="st-hint">${matchMedia('(hover:none)').matches ? 'SWIPE' : 'DRAG'}<i></i></span>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.st-season').forEach(sec => {
+    const tr = $('.st-track', sec), items = [...tr.children];
+    const bar = $('.st-prog i', sec), cnt = $('.st-cnt', sec);
+    const pv = $('.st-ctrl .prev', sec), nx = $('.st-ctrl .next', sec);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = tr.scrollWidth - tr.clientWidth, p = max > 0 ? tr.scrollLeft / max : 0;
+      bar.style.transform = `scaleX(${Math.max(.04, p)})`;
+      cnt.textContent = `${pad2(Math.round(p * (items.length - 1)) + 1)} / ${pad2(items.length)}`;
+      pv.disabled = tr.scrollLeft < 4; nx.disabled = tr.scrollLeft > max - 4;
+      if (reduced) return;
+      // 位置に応じてカードを僅かに傾ける（カバーフロー風）
+      const r = tr.getBoundingClientRect(), c = r.left + r.width / 2, h = r.width / 2;
+      items.forEach(li => {
+        const b = li.getBoundingClientRect();
+        if (b.right < r.left - 300 || b.left > r.right + 300) return;
+        const d = Math.max(-1.4, Math.min(1.4, (b.left + b.width / 2 - c) / h));
+        li.style.setProperty('--ry', `${(-d * 7).toFixed(2)}deg`);
+        li.style.setProperty('--sc', (1 - Math.min(1, Math.abs(d)) * .05).toFixed(3));
+      });
+    };
+    const req = () => { if (!raf) raf = requestAnimationFrame(update); };
+    tr.addEventListener('scroll', req, { passive: true });
+    addEventListener('resize', req);
+    update();
+    const step = dir => tr.scrollBy({ left: dir * Math.max(tr.clientWidth * .75, 260), behavior: reduced ? 'auto' : 'smooth' });
+    pv.addEventListener('click', () => step(-1));
+    nx.addEventListener('click', () => step(1));
+
+    // マウスのドラッグでスクロール（タッチはネイティブのスワイプ）
+    let dg = null, suppress = false;
+    tr.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      dg = { x: e.clientX, sl: tr.scrollLeft, moved: false, id: e.pointerId };
+    });
+    tr.addEventListener('pointermove', e => {
+      if (!dg) return;
+      const dx = e.clientX - dg.x;
+      if (!dg.moved && Math.abs(dx) > 6) { dg.moved = true; tr.classList.add('drag'); tr.setPointerCapture(dg.id); }
+      if (dg.moved) tr.scrollLeft = dg.sl - dx;
+    });
+    const end = () => {
+      if (!dg) return;
+      if (dg.moved) { suppress = true; setTimeout(() => { suppress = false; }, 80); tr.classList.remove('drag'); }
+      dg = null;
+    };
+    tr.addEventListener('pointerup', end);
+    tr.addEventListener('pointercancel', end);
+    tr.addEventListener('click', e => {
+      if (suppress) { e.preventDefault(); e.stopPropagation(); suppress = false; return; }
+      const b = e.target.closest('button[data-k]'); if (b) sOpen(+b.dataset.k);
+    }, true);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const io = new IntersectionObserver((ents) => ents.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal], .card').forEach(el => io.observe(el));
+
+  /* ---------- Detail overlay ---------- */
+  const detail = $('#detail'), dImg = $('#dImg'), dInfo = $('#dInfo'), dMq = $('#dMq');
+  let cur = -1, lastFocus = null, busy = false;
+  const visibleList = () => cards.filter(c => !c.hidden).map(c => +$('button', c).dataset.idx);
+
+  function render(i, dir) {
+    const c = CH[i]; cur = i;
+    detail.style.setProperty('--c', c.color);
+    const list = visibleList(), pos = list.indexOf(i);
+    const p = CH[list[(pos - 1 + list.length) % list.length]], n = CH[list[(pos + 1) % list.length]];
+    dInfo.innerHTML = `
+      <p class="d-num d-anim" style="--dl:.05s">${String(pos + 1).padStart(2, '0')} / ${String(list.length).padStart(2, '0')}</p>
+      <span class="d-fac d-anim" style="--dl:.1s">${FACTIONS[c.faction]}</span>
+      <h3 class="d-name" id="dName" aria-label="${esc(c.name)}">${splitChars(c.name)}</h3>
+      <p class="d-en d-anim" style="--dl:.35s">${esc(c.en)}</p>
+      <p class="d-cv d-anim" style="--dl:.45s">CV<b>${esc(c.cv)}</b></p>
+      <p class="d-text d-anim" style="--dl:.55s">${esc(c.text)}</p>
+      <img class="d-face d-anim" style="--dl:.7s" src="${esc(c.face)}" alt="${esc(c.name)}の表情設定" loading="lazy" referrerpolicy="no-referrer">`;
+    const t = `${c.en.toUpperCase()} · `.repeat(4);
+    dMq.innerHTML = `<span>${esc(t)}</span><span>${esc(t)}</span>`;
+    $('#dPrev img').src = p.icon; $('.lbl', $('#dPrev')).textContent = p.name;
+    $('#dNext img').src = n.icon; $('.lbl', $('#dNext')).textContent = n.name;
+    $('#dPrev').dataset.to = list[(pos - 1 + list.length) % list.length];
+    $('#dNext').dataset.to = list[(pos + 1) % list.length];
+    dImg.alt = c.name;
+    dImg.src = c.img;
+    $('#dScroll').scrollTop = 0;
+    if (!reduced) {
+      const fromX = dir === 0 ? 0 : dir * 120;
+      dImg.animate([
+        { opacity: 0, transform: `translate(${fromX}px, 60px) scale(.94)`, clipPath: 'inset(100% 0 0 0)' },
+        { opacity: 1, transform: 'none', clipPath: 'inset(0 0 0 0)' }
+      ], { duration: 900, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    }
+  }
+
+  async function go(i, dir) {
+    if (busy || i === cur) return;
+    busy = true;
+    if (!reduced && cur >= 0) {
+      await Promise.all([
+        dImg.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-dir * 120}px) scale(.96)` }], { duration: 320, easing: 'ease-in', fill: 'forwards' }).finished,
+        dInfo.animate([{ opacity: 1 }, { opacity: 0, transform: `translateX(${-dir * 30}px)` }], { duration: 260, easing: 'ease-in', fill: 'forwards' }).finished
+      ]);
+      dImg.getAnimations().forEach(a => a.cancel());
+      dInfo.getAnimations().forEach(a => a.cancel());
+    }
+    render(i, dir);
+    busy = false;
+  }
+
+  function open(i) {
+    lastFocus = document.activeElement;
+    cur = -1;
+    render(i, 0);
+    detail.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => $('#dClose').focus(), 50);
+  }
+  function close() {
+    detail.classList.remove('open');
+    document.body.style.overflow = '';
+    cur = -1;
+    if (lastFocus) lastFocus.focus();
+  }
+
+  $('#grid').addEventListener('click', (e) => { const b = e.target.closest('button[data-idx]'); if (b) open(+b.dataset.idx); });
+  $('#dClose').addEventListener('click', close);
+  $('#dPrev').addEventListener('click', () => go(+$('#dPrev').dataset.to, -1));
+  $('#dNext').addEventListener('click', () => go(+$('#dNext').dataset.to, 1));
+  document.addEventListener('keydown', (e) => {
+    if (!detail.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') $('#dNext').click();
+    else if (e.key === 'ArrowLeft') $('#dPrev').click();
+    else if (e.key === 'Tab') {
+      const f = [...detail.querySelectorAll('button')];
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  // swipe
+  let sx = null;
+  detail.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  detail.addEventListener('touchend', e => {
+    if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 60) (dx < 0 ? $('#dNext') : $('#dPrev')).click();
+  });
+
+  /* ---------- Story detail overlay ---------- */
+  const sd = $('#sd'), sdInfo = $('#sdInfo'), sdFrame = $('#sdFrame'), sdDots = $('#sdDots'), sdBig = $('#sdBig');
+  let sk = -1, sLast = null, sBusy = false, slideT = 0, slideI = 0;
+  const stopSlides = () => { clearInterval(slideT); slideT = 0; };
+  function showSlide(i) {
+    const ims = [...sdFrame.children]; if (!ims.length) return;
+    slideI = (i + ims.length) % ims.length;
+    ims.forEach((im, j) => im.classList.toggle('on', j === slideI));
+    [...sdDots.children].forEach((d, j) => d.setAttribute('aria-pressed', j === slideI));
+  }
+  function startSlides() {
+    stopSlides();
+    if (reduced || sdFrame.children.length < 2) return;
+    slideT = setInterval(() => showSlide(slideI + 1), 4200);
+  }
+  const itemName = x => x.e ? `#${x.e.no} ${x.e.title}` : `${x.s.label} INTRO`;
+  const itemThumb = x => x.e ? x.e.img : x.s.intro.img;
+
+  function sRender(k, dir) {
+    const it = SITEMS[k], { s, e } = it; sk = k;
+    ST.forEach(x => sd.classList.remove(`st-${x.id}`));
+    sd.classList.add(`st-${s.id}`);
+    const imgs = e ? e.imgs : [s.intro.img];
+    sdFrame.classList.toggle('kv', !e);
+    sdFrame.innerHTML = imgs.map((u, j) => `<img src="${esc(u)}" alt="${j ? '' : esc(e ? `${e.label}「${e.title}」の場面写真` : `${s.label} キービジュアル`)}" decoding="async" referrerpolicy="no-referrer" draggable="false">`).join('');
+    sdDots.innerHTML = imgs.length > 1 ? imgs.map((_, j) => `<button aria-label="場面 ${j + 1}" aria-pressed="false"></button>`).join('') : '';
+    sdDots.hidden = imgs.length < 2;
+    showSlide(0); startSlides();
+    sdBig.innerHTML = `<span>${e ? '#' + esc(e.no) : 'INTRO'}</span>`;
+    const title = e ? e.title : 'INTRODUCTION';
+    const pos = e ? s.episodes.indexOf(e) + 1 : 0;
+    sdInfo.innerHTML = `
+      <p class="sd-kick d-anim" style="--dl:.05s"><span>${esc(s.label)}</span><span>${e ? `EPISODE ${pad2(pos)} / ${pad2(s.episodes.length)}` : 'INTRODUCTION'}</span></p>
+      <p class="sd-lbl d-anim" style="--dl:.12s">${esc(e ? e.label : 'あらすじ概要')}</p>
+      <h3 class="sd-title${e ? '' : ' en'}" id="sdTitle" aria-label="${esc(title)}">${splitChars(title)}</h3>
+      ${!e && s.intro.catch ? `<p class="sd-catch d-anim" style="--dl:.35s">${nl2br(s.intro.catch)}</p>` : ''}
+      <div class="sd-text d-anim" style="--dl:.45s">${(e ? [e.text] : s.intro.text).map(p => `<p>${nl2br(p)}</p>`).join('')}</div>
+      <a class="sd-link d-anim" style="--dl:.6s" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">公式サイトの STORY で見る
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>`;
+    const n = SITEMS.length, P = (k - 1 + n) % n, N = (k + 1) % n;
+    [[$('#sdPrev'), P], [$('#sdNext'), N]].forEach(([b, t]) => {
+      $('img', b).src = itemThumb(SITEMS[t]); $('.lbl', b).textContent = itemName(SITEMS[t]); b.dataset.to = t;
+    });
+    $('#sdScroll').scrollTop = 0;
+    if (!reduced) {
+      const from = dir > 0 ? 'inset(0 0 0 100%)' : dir < 0 ? 'inset(0 100% 0 0)' : 'inset(100% 0 0 0)';
+      sdFrame.animate([
+        { opacity: 0, transform: `translate(${dir * 80}px, ${dir ? 0 : 40}px) scale(.96)`, clipPath: from },
+        { opacity: 1, transform: 'none', clipPath: 'inset(0 0 0 0)' }
+      ], { duration: 900, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    }
+  }
+  async function sGo(k, dir) {
+    if (sBusy || k === sk) return;
+    sBusy = true;
+    if (!reduced) {
+      await Promise.all([
+        sdFrame.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-dir * 100}px) scale(.96)` }], { duration: 300, easing: 'ease-in', fill: 'forwards' }).finished,
+        sdInfo.animate([{ opacity: 1 }, { opacity: 0, transform: `translateX(${-dir * 30}px)` }], { duration: 260, easing: 'ease-in', fill: 'forwards' }).finished
+      ]);
+      sdFrame.getAnimations().forEach(a => a.cancel());
+      sdInfo.getAnimations().forEach(a => a.cancel());
+    }
+    sRender(k, dir);
+    sBusy = false;
+  }
+  function sOpen(k) {
+    sLast = document.activeElement;
+    sk = -1;
+    sRender(k, 0);
+    sd.classList.add('open'); sd.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => $('#sdClose').focus(), 50);
+  }
+  function sClose() {
+    sd.classList.remove('open'); sd.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    stopSlides(); sk = -1;
+    if (sLast) sLast.focus({ preventScroll: true });
+  }
+  $('#sdClose').addEventListener('click', sClose);
+  $('#sdPrev').addEventListener('click', () => sGo(+$('#sdPrev').dataset.to, -1));
+  $('#sdNext').addEventListener('click', () => sGo(+$('#sdNext').dataset.to, 1));
+  sdFrame.addEventListener('click', () => { if (sdFrame.children.length > 1) { showSlide(slideI + 1); startSlides(); } });
+  sdDots.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    showSlide([...sdDots.children].indexOf(b)); startSlides();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!sd.classList.contains('open')) return;
+    if (e.key === 'Escape') sClose();
+    else if (e.key === 'ArrowRight') $('#sdNext').click();
+    else if (e.key === 'ArrowLeft') $('#sdPrev').click();
+    else if (e.key === 'Tab') {
+      const f = [...sd.querySelectorAll('button, a[href]')].filter(x => x.offsetParent !== null);
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  let ssx = null, ssy = null;
+  sd.addEventListener('touchstart', e => { ssx = e.touches[0].clientX; ssy = e.touches[0].clientY; }, { passive: true });
+  sd.addEventListener('touchend', e => {
+    if (ssx == null) return;
+    const dx = e.changedTouches[0].clientX - ssx, dy = e.changedTouches[0].clientY - ssy; ssx = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) (dx < 0 ? $('#sdNext') : $('#sdPrev')).click();
+  });
+
+  /* ---------- Scroll: header, progress, hero parallax ---------- */
+  const header = $('#top'), prog = $('#progress');
+  const heroCharas = [...document.querySelectorAll('.hero-chara')];
+  const heroCircle = $('.hero .circle');
+  let mx = 0, my = 0;
+  function onScroll() {
+    const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    header.classList.toggle('scrolled', y > 40);
+    prog.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
+    if (!reduced && y < innerHeight * 1.2) {
+      heroCircle.style.transform = `translate(${mx * 10}px, ${y * .25 + my * 10}px) scale(${1 + y / 3000})`;
+      heroCharas.forEach(el => {
+        const d = +el.dataset.depth;
+        el.style.transform = `translate(${mx * d}px, ${y * (d > 0 ? .15 : .3) + my * Math.abs(d) * .5}px)`;
+      });
+    }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Cursor glow & mouse parallax ---------- */
+  const cursor = $('#cursor');
+  let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
+  addEventListener('pointermove', e => {
+    tx = e.clientX; ty = e.clientY;
+    mx = (e.clientX / innerWidth - .5) * 2; my = (e.clientY / innerHeight - .5) * 2;
+    if (scrollY < innerHeight) onScroll();
+  }, { passive: true });
+  (function loop() {
+    cx += (tx - cx) * .12; cy += (ty - cy) * .12;
+    cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+    requestAnimationFrame(loop);
+  })();
+
+  /* ---------- Particles (dark: 魔力の燐光 / light: 氷の結晶) ---------- */
+  const cv = $('#fx'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1, parts = [];
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
+    const n = Math.round(Math.min(90, innerWidth / 16));
+    parts = Array.from({ length: n }, () => spawn(true));
+  }
+  function spawn(init) {
+    return {
+      x: Math.random() * W, y: init ? Math.random() * H : null,
+      r: (Math.random() * 2 + .6) * dpr, s: (Math.random() * .5 + .2) * dpr,
+      a: Math.random() * Math.PI * 2, w: Math.random() * .02 + .005,
+      rot: Math.random() * Math.PI, vr: (Math.random() - .5) * .02, hue: Math.random()
+    };
+  }
+  function flake(x, y, r, rot, col) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.strokeStyle = col; ctx.lineWidth = Math.max(1, r * .35);
+    for (let k = 0; k < 6; k++) {
+      ctx.rotate(Math.PI / 3);
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, r * 3);
+      ctx.moveTo(0, r * 1.8); ctx.lineTo(r * .8, r * 2.5); ctx.moveTo(0, r * 1.8); ctx.lineTo(-r * .8, r * 2.5);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const light = root.dataset.theme === 'light';
+    for (const p of parts) {
+      p.a += p.w; p.rot += p.vr;
+      if (light) {
+        if (p.y == null) p.y = -20;
+        p.y += p.s * .8; p.x += Math.sin(p.a) * .4 * dpr;
+        if (p.y > H + 20) Object.assign(p, spawn(false), { y: -20 });
+        flake(p.x, p.y, p.r * 1.3, p.rot, `rgba(${p.hue > .5 ? '110,170,225' : '150,120,220'},${.35 + Math.sin(p.a) * .15})`);
+      } else {
+        if (p.y == null) p.y = H + 20;
+        p.y -= p.s; p.x += Math.sin(p.a) * .3 * dpr;
+        if (p.y < -20) Object.assign(p, spawn(false), { y: H + 20 });
+        const al = .4 + Math.sin(p.a * 3) * .3;
+        const col = p.hue > .55 ? `216,180,106` : `160,130,255`;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+        g.addColorStop(0, `rgba(${col},${al})`); g.addColorStop(1, `rgba(${col},0)`);
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  resize();
+  if (!reduced) draw();
+})();
+</script>
+</body>
+</html>
